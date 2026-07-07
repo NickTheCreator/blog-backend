@@ -28,6 +28,7 @@ This project is a backend exercise that exposes login-related endpoints under `/
 
 ## Project Structure
 
+```
 blog-backend/
 ├── .gitignore
 ├── prisma/
@@ -50,6 +51,7 @@ blog-backend/
 ├── prisma.config.ts
 ├── server.js
 └── README.md
+```
 
 ## How to Run
 
