@@ -2,7 +2,7 @@ import userLogin from "../services/login.service.js";
 
 async function create(req, res) {
 	try {
-		const loginWithPermission = { ...req.body, permission: "user"}
+		const loginWithPermission = { ...req.body, permission: "user" };
 
 		const login = await userLogin.createLogin(loginWithPermission);
 		res.status(201).json(login);
@@ -39,15 +39,15 @@ async function remove(req, res) {
 }
 
 async function logar(req, res) {
-    const { login, password } = req.body;
+	const { login, password } = req.body;
 
-    try {
-        const resultado = await userLogin.authLogin(login, password);
+	try {
+		const resultado = await userLogin.authLogin(login, password);
 
-        return res.status(200).json(resultado);
-    } catch (error) {
-        return res.status(401).json({ error: error.message });
-    }
+		return res.status(200).json(resultado);
+	} catch (error) {
+		return res.status(401).json({ error: error.message });
+	}
 }
 
 export default { create, getAll, update, remove, logar };

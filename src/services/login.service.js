@@ -1,6 +1,6 @@
 import "dotenv/config";
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import prisma from "../config/db.js";
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -11,14 +11,12 @@ async function createLogin(data) {
 	const saltRounds = 10;
 	const passwordCripto = await bcrypt.hash(password, saltRounds);
 
-
-
 	return prisma.login.create({
 		data: {
 			login: login,
 			password: passwordCripto,
-			permission: permission
-		}
+			permission: permission,
+		},
 	});
 }
 
@@ -28,7 +26,7 @@ async function getAllLogin() {
 
 async function authLogin(login, passwordDigitaded) {
 	const usuario = await prisma.login.findUnique({
-		where: { login: login }
+		where: { login: login },
 	});
 
 	if (!usuario) {
@@ -41,21 +39,18 @@ async function authLogin(login, passwordDigitaded) {
 		throw new Error("Usuário ou senha incorretos.");
 	}
 
-	const token = jwt.sign(
-		{ id: usuario.id, permission: usuario.permission },
-		JWT_SECRET,
-		{ expiresIn: '1d' }
-	);
+	const token = jwt.sign({ id: usuario.id, permission: usuario.permission }, JWT_SECRET, {
+		expiresIn: "1d",
+	});
 	return {
 		user: {
 			id: usuario.id,
 			login: usuario.login,
-			permission: usuario.permission
+			permission: usuario.permission,
 		},
-		token
+		token,
 	};
 }
-
 
 async function updateLogin(id, data) {
 	return prisma.login.update({
